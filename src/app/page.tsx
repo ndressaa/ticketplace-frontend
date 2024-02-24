@@ -1,19 +1,23 @@
-import { Header } from '@/components';
-import Link from 'next/link';
+import { EventSlider, Header, Search } from '@/components';
+import { BottomNavBar } from '@/components/BottomNavBar/BottomNavBar';
 
 export default function Home() {
   return (
     <main>
       <Header />
       <br />
+      <Search />
       <br />
-      Página inicial
+      <section>Categorias</section>
       <br />
+      <EventSlider title="Eventos Populares" />
       <br />
-      <Link href="./login">login</Link>
+      <EventSlider title="Promoções" />
       <br />
-      <br />
-      <Link href="./events">página de eventos</Link>
+      <BottomNavBar />
+
+      {/* <Link href="./login">login</Link> */}
+      {/* <Link href="./events">página de eventos</Link> */}
     </main>
   );
 }
