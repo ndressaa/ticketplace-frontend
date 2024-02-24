@@ -15,7 +15,6 @@ export default function Home() {
       <EventSlider title="Promoções" />
       <br />
       <BottomNavBar />
-
       {/* <Link href="./login">login</Link> */}
       {/* <Link href="./events">página de eventos</Link> */}
     </main>
