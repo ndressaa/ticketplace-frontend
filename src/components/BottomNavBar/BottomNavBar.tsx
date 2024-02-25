@@ -1,17 +1,30 @@
-import Link from 'next/link';
+import {
+  EventCalendarIcon,
+  HomeIcon,
+  ProfileIcon,
+  PromotionIcon,
+} from '@/assets/icons';
+import { NavBar, StyledLink } from './BottomNavBar.styles';
 
 export const BottomNavBar = () => {
   return (
-    <div>
-      <nav>
-        <Link href="./">Home</Link>
-        <br />
-        <Link href="./events">Eventos</Link>
-        <br />
-        <Link href="./">Promoções</Link>
-        <br />
-        <Link href="./login">Perfil</Link>
-      </nav>
-    </div>
+    <NavBar>
+      <StyledLink href="./">
+        <HomeIcon size="medium" />
+        <p>Home</p>
+      </StyledLink>
+      <StyledLink href="./events">
+        <EventCalendarIcon size="medium" />
+        <p>Eventos</p>
+      </StyledLink>
+      <StyledLink href="./">
+        <PromotionIcon size="medium" />
+        <p> Promoções</p>
+      </StyledLink>
+      <StyledLink href="./login">
+        <ProfileIcon size="medium" />
+        <p>Perfil</p>
+      </StyledLink>
+    </NavBar>
   );
 };

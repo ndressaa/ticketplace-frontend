@@ -25,5 +25,3 @@ export const LocationIcon = (props: { size?: string }) => {
     </svg>
   );
 };
-
-export default LocationIcon;

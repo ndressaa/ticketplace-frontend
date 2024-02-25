@@ -2,19 +2,19 @@ import { CartIcon, LocationIcon } from '@/assets/icons';
 import { Logo, SmallLogo } from '@/assets/img';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Container, Location } from './Header.styles';
+import { Location, StyledHeader } from './Header.styles';
 
 export const Header = (props: { isLoginOrSignup: boolean }) => {
   const { isLoginOrSignup } = props;
 
   return isLoginOrSignup ? (
-    <Container>
+    <StyledHeader>
       <Link href="./">
         <Image src={Logo} alt="Logo Ticketplace" />
       </Link>
-    </Container>
+    </StyledHeader>
   ) : (
-    <Container>
+    <StyledHeader>
       <Image src={SmallLogo} alt="Logo Ticketplace" />
       <Location>
         <LocationIcon size="small" />
@@ -23,6 +23,6 @@ export const Header = (props: { isLoginOrSignup: boolean }) => {
       <Link href="./cart">
         <CartIcon />
       </Link>
-    </Container>
+    </StyledHeader>
   );
 };

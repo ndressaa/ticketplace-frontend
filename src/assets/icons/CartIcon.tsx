@@ -33,5 +33,3 @@ export const CartIcon = (props: { size?: string }) => {
     </svg>
   );
 };
-
-export default CartIcon;

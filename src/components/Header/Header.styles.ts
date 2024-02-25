@@ -2,13 +2,16 @@
 
 import { styled } from 'styled-components';
 
-export const Container = styled.div`
+export const StyledHeader = styled.header`
   background-color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 65px;
   padding: 15px 25px;
+
+  position: absolute;
+  width: 100%;
 `;
 
 export const Location = styled.div`
