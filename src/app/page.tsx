@@ -1,6 +1,6 @@
 import { BottomNavBar, EventSlider, Header, Search } from '@/components';
 
-export default function Home() {
+export default function Page() {
   return (
     <main>
       <Header isLoginOrSignup={false} />
