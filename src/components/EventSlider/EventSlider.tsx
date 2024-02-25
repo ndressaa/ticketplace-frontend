@@ -1,5 +1,6 @@
-export const EventSlider = (props: any) => {
+export const EventSlider = (props: { title: string }) => {
   const { title } = props;
+
   return (
     <div>
       <p>{title}</p>

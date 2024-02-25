@@ -1,10 +1,9 @@
-import { EventSlider, Header, Search } from '@/components';
-import { BottomNavBar } from '@/components/BottomNavBar/BottomNavBar';
+import { BottomNavBar, EventSlider, Header, Search } from '@/components';
 
 export default function Home() {
   return (
     <main>
-      <Header />
+      <Header isLoginOrSignup={false} />
       <br />
       <Search />
       <br />

@@ -1,3 +1,10 @@
+import { Header } from '@/components';
+
 export default function Page() {
-  return <main>Cadastro</main>;
+  return (
+    <main>
+      <Header isLoginOrSignup />
+      Cadastro
+    </main>
+  );
 }
