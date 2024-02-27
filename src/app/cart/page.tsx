@@ -1,11 +1,17 @@
-import { BottomNavBar } from '@/components';
+import { BottomNavBar, Header } from '@/components';
+import { Content } from './styles';
 
 export default function Page() {
   return (
-    <main>
-      Carrinho
-      <br />
+    <>
+      <Header isLoginOrSignup={false} />
+
+      <Content>
+        Carrinho
+        <br />
+      </Content>
+
       <BottomNavBar />
-    </main>
+    </>
   );
 }

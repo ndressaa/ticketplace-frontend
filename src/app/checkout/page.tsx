@@ -1,9 +1,16 @@
-import { BottomNavBar } from '@/components';
+import { BottomNavBar, Header } from '@/components';
+import { Content } from './styles';
 
 export default function Page() {
   return (
-    <main>
-      Checkout <br /> <BottomNavBar />
-    </main>
+    <>
+      <Header isLoginOrSignup={false} />
+
+      <Content>
+        Checkout <br />
+      </Content>
+
+      <BottomNavBar />
+    </>
   );
 }

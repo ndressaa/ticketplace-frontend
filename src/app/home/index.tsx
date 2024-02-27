@@ -1,9 +1,9 @@
 import { BottomNavBar, EventSlider, Header, Search } from '@/components';
-import { Container, Content } from './styles';
+import { Content } from './styles';
 
 export const Home = () => {
   return (
-    <Container>
+    <>
       <Header isLoginOrSignup={false} />
 
       <Content>
@@ -18,6 +18,6 @@ export const Home = () => {
       </Content>
 
       <BottomNavBar />
-    </Container>
+    </>
   );
 };

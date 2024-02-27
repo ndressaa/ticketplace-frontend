@@ -15,7 +15,9 @@ export const Header = (props: { isLoginOrSignup: boolean }) => {
     </StyledHeader>
   ) : (
     <StyledHeader>
-      <Image src={SmallLogo} alt="Logo Ticketplace" />
+      <Link href="./">
+        <Image src={SmallLogo} alt="Logo Ticketplace" />
+      </Link>
       <Location>
         <LocationIcon size="small" />
         <p>São Paulo</p>
