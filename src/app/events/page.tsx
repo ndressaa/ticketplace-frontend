@@ -18,7 +18,7 @@ export default function Page() {
         <br />
       </Content>
 
-      <BottomNavBar />
+      <BottomNavBar currentPage="events" />
     </>
   );
 }

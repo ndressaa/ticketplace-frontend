@@ -8,10 +8,17 @@ export const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 65px;
-  padding: 15px 25px;
 
   position: absolute;
   width: 100%;
+
+  a {
+    padding: 15px 25px;
+  }
+
+  a.ativo {
+    background-color: var(--color-active);
+  }
 `;
 
 export const Location = styled.div`

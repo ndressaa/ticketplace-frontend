@@ -17,7 +17,7 @@ export const Home = () => {
         <br />
       </Content>
 
-      <BottomNavBar />
+      <BottomNavBar currentPage="home" />
     </>
   );
 };

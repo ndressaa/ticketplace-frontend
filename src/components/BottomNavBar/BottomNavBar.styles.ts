@@ -20,7 +20,13 @@ export const StyledLink = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100%;
   gap: 4px;
+
+  &.ativo {
+    background-color: var(--color-active);
+  }
 
   p {
     text-decoration: none;

@@ -10,7 +10,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <div>Evento exemplo {params.id}</div>
       </Content>
 
-      <BottomNavBar />
+      <BottomNavBar currentPage="events" />
     </>
   );
 }

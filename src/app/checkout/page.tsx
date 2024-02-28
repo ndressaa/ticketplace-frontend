@@ -4,11 +4,9 @@ import { Content } from './styles';
 export default function Page() {
   return (
     <>
-      <Header isLoginOrSignup={false} />
+      <Header isLoginOrSignup={false} currentPage="cart/checkout" />
 
-      <Content>
-        Checkout <br />
-      </Content>
+      <Content>Checkout</Content>
 
       <BottomNavBar />
     </>
