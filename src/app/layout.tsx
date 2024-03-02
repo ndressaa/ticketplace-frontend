@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto_Flex } from 'next/font/google';
-import './globals.css';
+import { GlobalStyle } from './global.styles';
 
 const robotoFlex = Roboto_Flex({ subsets: ['latin'] });
 
@@ -16,6 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <GlobalStyle />
       <body className={robotoFlex.className}>{children}</body>
     </html>
   );
