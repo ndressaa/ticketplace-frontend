@@ -1,5 +1,11 @@
-import { BottomNavBar, EventSlider, Header, Search } from '@/components';
-import { Content } from './styles';
+import {
+  BottomNavBar,
+  Categories,
+  EventSlider,
+  Header,
+  Search,
+} from '@/components';
+import { Container, Content } from './styles';
 
 export const Home = () => {
   return (
@@ -7,14 +13,15 @@ export const Home = () => {
       <Header isLoginOrSignup={false} />
 
       <Content>
-        <Search />
-        <br />
-        <section>Categorias</section>
-        <br />
-        <EventSlider title="Eventos Populares" />
-        <br />
-        <EventSlider title="Promoções" />
-        <br />
+        <Container>
+          <Search />
+
+          <Categories />
+
+          <EventSlider title="Eventos Populares" />
+
+          <EventSlider title="Promoções" />
+        </Container>
       </Content>
 
       <BottomNavBar currentPage="home" />

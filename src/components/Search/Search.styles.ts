@@ -5,7 +5,6 @@ import { styled } from 'styled-components';
 export const SearchBar = styled.div`
   background: gray;
   width: 100%;
-  max-width: 340px;
   height: 42px;
   margin: 0 auto;
   display: flex;
