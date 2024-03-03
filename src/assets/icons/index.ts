@@ -4,6 +4,7 @@ import { HomeIcon } from './HomeIcon';
 import { LocationIcon } from './LocationIcon';
 import { ProfileIcon } from './ProfileIcon';
 import { PromotionIcon } from './PromotionIcon';
+import { SearchIcon } from './SearchIcon';
 
 export {
   CartIcon,
@@ -12,4 +13,5 @@ export {
   LocationIcon,
   ProfileIcon,
   PromotionIcon,
+  SearchIcon,
 };
