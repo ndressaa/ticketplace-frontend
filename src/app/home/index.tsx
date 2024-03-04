@@ -7,7 +7,7 @@ import {
 } from '@/components';
 import { Container, Content } from './styles';
 
-export const Home = () => {
+export default async function Home() {
   return (
     <>
       <Header isLoginOrSignup={false} />
@@ -27,4 +27,4 @@ export const Home = () => {
       <BottomNavBar currentPage="home" />
     </>
   );
-};
+}

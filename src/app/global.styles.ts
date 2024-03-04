@@ -35,4 +35,8 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     text-decoration: none;
   }
+
+  a:visited {
+    color: inherit;
+  }
 `;

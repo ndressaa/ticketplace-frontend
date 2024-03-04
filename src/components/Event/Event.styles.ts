@@ -16,6 +16,7 @@ export const Info = styled.div`
   flex-direction: column;
   gap: 4px;
   padding: 10px 0;
+  color: var(--color-text);
 
   h4 {
     font-size: 14px;
