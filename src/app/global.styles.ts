@@ -16,6 +16,7 @@ export const GlobalStyle = createGlobalStyle`
     --color-secondary: #5600cf;
     --color-accent: #5600cf;
     --color-active: #a57ae1;
+    --color-button: #EBAC31;
   }
 
   * {

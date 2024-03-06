@@ -1,16 +1,61 @@
-import { Header } from '@/components';
-import Link from 'next/link';
-import { Content } from './styles';
+'use client';
 
-export default function Page() {
+import { getLogin } from '@/api';
+import { Header } from '@/components';
+import {
+  Container,
+  Content,
+  Description,
+  FormDiv,
+  PasswordChange,
+  StyledLink,
+  Title,
+} from './styles';
+
+export default async function Page() {
+  async function onSubmit(event: any) {
+    event.preventDefault();
+
+    var formData = new FormData(event.target);
+    const form_values = Object.fromEntries(formData);
+
+    const email = form_values['login-email'];
+    const password = form_values['login-password'];
+
+    const login = await getLogin({ email, password });
+
+    const { token } = login;
+  }
+
   return (
     <>
       <Header isLoginOrSignup />
-
       <Content>
-        <div>formulario de login</div>
-        <br />
-        <Link href="./signup">Cadastre-se</Link>
+        <Container>
+          <div>
+            <Title>Acesse</Title>
+            <Description>Digite seu e-mail e senha para entrar</Description>
+          </div>
+          <FormDiv>
+            <form id="login-form" onSubmit={onSubmit}>
+              <input
+                type="text"
+                id="login-email"
+                name="login-email"
+                placeholder="E-mail"
+              />
+              <input
+                type="password"
+                id="login-password"
+                name="login-password"
+                placeholder="Senha"
+              />
+              <PasswordChange>Esqueci minha senha</PasswordChange>
+              <button type="submit">Acessar</button>
+            </form>
+          </FormDiv>
+          <StyledLink href="./signup">Cadastre-se</StyledLink>
+        </Container>
       </Content>
     </>
   );
