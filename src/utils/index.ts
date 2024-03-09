@@ -1,3 +1,4 @@
+import { formatDate } from './formatDate';
 import { setIconSize } from './setIconSize';
 
-export { setIconSize };
+export { formatDate, setIconSize };

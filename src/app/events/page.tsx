@@ -1,10 +1,7 @@
-import { getAllEvents } from '@/api';
 import { BottomNavBar, EventSlider, Header, Search } from '@/components';
 import { Container, Content } from './styles';
 
 export default async function Page() {
-  const events = await getAllEvents();
-
   return (
     <>
       <Header isLoginOrSignup={false} />
@@ -18,8 +15,6 @@ export default async function Page() {
           <EventSlider title="Artista" />
 
           <EventSlider title="TOP 10 Shows" />
-
-          {/* <Link href="./events/1234">Link exemplo evento 1234</Link> */}
         </Container>
       </Content>
 
