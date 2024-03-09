@@ -24,7 +24,10 @@ export default async function Page() {
 
     const login = await getLogin({ email, password });
 
-    const { token } = login;
+    if (login) {
+      alert('Login realizado com sucesso!');
+      window.location.href = '/';
+    }
   }
 
   return (

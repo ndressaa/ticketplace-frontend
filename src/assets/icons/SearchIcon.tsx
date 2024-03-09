@@ -13,7 +13,7 @@ export const SearchIcon = () => {
         r="7.12139"
         transform="rotate(-45 12.1925 12.1925)"
         stroke="#DEDCFB"
-        stroke-width="3"
+        strokeWidth="3"
       />
       <rect
         x="17.5571"

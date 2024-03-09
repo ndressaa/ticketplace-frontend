@@ -1,4 +1,4 @@
-import { getLogin } from './auth';
+import { getLogin, signUp } from './auth';
 import { getAllEvents, getEventById } from './shows';
 
-export { getAllEvents, getEventById, getLogin };
+export { getAllEvents, getEventById, getLogin, signUp };
