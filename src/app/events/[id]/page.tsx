@@ -4,6 +4,7 @@ import { addToCart, getEventById, getTicketsByEventId } from '@/api';
 import { BottomNavBar, Header } from '@/components';
 import { useAppContext } from '@/context';
 import { formatDate } from '@/utils';
+import toast from 'react-hot-toast';
 import { Button, Container, Content, Description, Info, Title } from './styles';
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -35,7 +36,12 @@ export default async function Page({ params }: { params: { id: string } }) {
     );
 
     if (addedToCart) {
-      alert('Ingresso adicionado ao carrinho com sucesso!');
+      toast('Ingresso adicionado ao carrinho com sucesso!', {
+        duration: 4000,
+        position: 'top-center',
+        style: { backgroundColor: 'var(--color-light)' },
+        icon: '✅',
+      });
     }
   }
 

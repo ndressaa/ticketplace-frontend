@@ -4,6 +4,7 @@ import { getLogin } from '@/api';
 import { Header } from '@/components';
 import { useAppContext } from '@/context';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 import {
   Container,
   Content,
@@ -34,7 +35,12 @@ export default async function Page() {
       globalState['user_id'] = user.id;
       globalState['auth_token'] = token;
 
-      alert('Login realizado com sucesso!');
+      toast('Login realizado com sucesso!', {
+        duration: 4000,
+        position: 'top-center',
+        style: { backgroundColor: 'var(--color-light)' },
+        icon: '✅',
+      });
       router.push('/');
     }
   }

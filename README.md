@@ -1,4 +1,18 @@
-## Rodando o projeto
+### Integrantes do grupo
+
+ANDRESSA DOS SANTOS JUCOSKI
+<br />
+BRUNO NATALI
+<br />
+ISMAEL M. VASCONCELOS JUNIOR
+<br />
+LUIZ FERNANDO VIDAL
+<br />
+MATEUS VIEIRA DA SILVA
+
+---
+
+# TicketPlace Frontend
 
 Antes de rodar o frontend, é necessário instalar o banco de dados e backend localmente conforme intruções nos seguintes repositórios:
 

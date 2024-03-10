@@ -2,6 +2,7 @@
 
 import { BottomNavBar, Header } from '@/components';
 import { useRouter, useSearchParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 import {
   Button,
   Container,
@@ -19,7 +20,12 @@ export default function Page() {
 
   const onClickHandler = (event: any) => {
     event.preventDefault();
-    alert('Pagamento realizado com sucesso!');
+    toast('Pagamento realizado com sucesso!', {
+      duration: 4000,
+      position: 'top-center',
+      style: { backgroundColor: 'var(--color-light)' },
+      icon: '✅',
+    });
     router.push('/');
   };
 
