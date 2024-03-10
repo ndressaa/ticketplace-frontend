@@ -1,3 +1,5 @@
+'use client';
+
 import { BottomNavBar, EventSlider, Header, Search } from '@/components';
 import { Container, Content } from './styles';
 

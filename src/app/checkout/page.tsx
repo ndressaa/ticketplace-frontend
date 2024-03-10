@@ -1,33 +1,74 @@
+'use client';
+
 import { BottomNavBar, Header } from '@/components';
-import { Content } from './styles';
+import { useSearchParams } from 'next/navigation';
+import {
+  Button,
+  Container,
+  Content,
+  PaymentForm,
+  PaymentMethods,
+  Total,
+} from './styles';
 
 export default function Page() {
+  const searchParams = useSearchParams();
+  const total = searchParams.get('total');
+
+  const onClickHandler = (event: any) => {
+    event.preventDefault();
+    alert('Pagamento realizado com sucesso!');
+    window.location.href = '/';
+  };
+
   return (
     <>
       <Header isLoginOrSignup={false} currentPage="cart/checkout" />
 
       <Content>
-        <head>
-          <title>Checkout</title> 
-        </head>  
+        <Container>
+          <Total>
+            <p>Total</p>
+            <span>R$ {total},00</span>
+          </Total>
 
-        <body>
-          <h2>Total</h2>  
+          <PaymentMethods>
+            <button type="button">PayPal</button>
+            <button type="button">Cartão de Crédito</button>
+            <button type="button">Pix</button>
+          </PaymentMethods>
 
-          <button type="button">PayPal</button>
-          <button type="button">Cartão de Crédito</button>
-          <button type="button">Pix</button>
+          <PaymentForm>
+            <h2>Dados do Cartão</h2>
 
-          <h2>Dados do Cartão</h2>
-          <p>Nome do Titular do Cartão</p>
-          <p>Número do Cartão</p>
-          <p>Validade</p>
-          <p>CVC</p>
+            <input
+              type="text"
+              name="nome"
+              id="nome"
+              placeholder="Nome do titular do cartão"
+            />
+            <input
+              type="number"
+              name="numero"
+              id="numero"
+              placeholder="Número do cartão"
+            />
+            <div>
+              <div>
+                <label htmlFor="validade"> Validade</label>
+                <input type="text" name="validade" id="validade" />
+              </div>
+              <div>
+                <label htmlFor="cvc">CVC</label>
+                <input type="number" name="cvc" id="cvc" />
+              </div>
+            </div>
 
-          <button type="button">Finalizar Compra</button>
-        </body>   
+            <Button onClick={onClickHandler}>Finalizar Compra</Button>
+          </PaymentForm>
+        </Container>
       </Content>
-      
+
       <BottomNavBar />
     </>
   );

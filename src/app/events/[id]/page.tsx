@@ -1,4 +1,6 @@
-import { getEventById } from '@/api';
+'use client';
+
+import { addToCart, getEventById, getTicketsByEventId } from '@/api';
 import { BottomNavBar, Header } from '@/components';
 import { formatDate } from '@/utils';
 import { Button, Container, Content, Description, Info, Title } from './styles';
@@ -13,6 +15,23 @@ export default async function Page({ params }: { params: { id: string } }) {
   const imageSource = `data:image/jpeg;base64, ${capa}`;
   const date = formatDate(data).split(' - ')[0];
   const time = formatDate(data).split(' - ')[1];
+
+  const eventTickets = await getTicketsByEventId(id);
+  const { valor, tipo } = eventTickets[0];
+  const ticketId = eventTickets[0].id;
+
+  async function onClickHandler() {
+    const addedToCart = await addToCart({
+      id_usuario: '1',
+      id_ingresso: ticketId,
+      classe: tipo,
+      desconto: 0,
+    });
+
+    if (addedToCart) {
+      alert('Ingresso adicionado ao carrinho com sucesso');
+    }
+  }
 
   return (
     <>
@@ -47,13 +66,13 @@ export default async function Page({ params }: { params: { id: string } }) {
 
             <p>
               <b>Valor</b>
-              [valor]
+              R$ {valor}
             </p>
           </Info>
 
           <Description>{descricao}</Description>
 
-          <Button>Adicionar ao carrinho</Button>
+          <Button onClick={onClickHandler}>Adicionar ao carrinho</Button>
         </Container>
       </Content>
 

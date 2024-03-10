@@ -4,7 +4,7 @@ export async function getAllEvents() {
     headers: {
       'Content-Type': 'application/json',
       // atualizar para pegar o token do login
-      Authorization: 'Bearer MGduOTRleGkxdHNtLjE3MDk5NTczOTg=',
+      Authorization: 'Bearer cDIxMnBvaW5teGEuMTcxMDAzMTA5Ng==',
     },
   });
 
@@ -17,7 +17,7 @@ export async function getEventById(id: string) {
     headers: {
       'Content-Type': 'application/json',
       // atualizar para pegar o token do login
-      Authorization: 'Bearer MGduOTRleGkxdHNtLjE3MDk5NTczOTg=',
+      Authorization: 'Bearer cDIxMnBvaW5teGEuMTcxMDAzMTA5Ng==',
     },
   });
 

@@ -16,8 +16,6 @@ export default async function Page() {
     const senha = form_values['senha'];
     const cpf = form_values['cpf'];
 
-    console.log(form_values);
-
     const signup = await signUp({ nome, email, senha, cpf });
 
     if (signup) {
