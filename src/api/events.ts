@@ -1,10 +1,8 @@
-export async function getAllEvents() {
+export async function getAllEvents(token: string) {
   const res = await fetch('http://localhost:8080/v1/eventos', {
-    // method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      // atualizar para pegar o token do login
-      Authorization: 'Bearer cDIxMnBvaW5teGEuMTcxMDAzMTA5Ng==',
+      Authorization: `Bearer ${token}`,
     },
   });
 
@@ -12,12 +10,11 @@ export async function getAllEvents() {
   return data;
 }
 
-export async function getEventById(id: string) {
+export async function getEventById(id: string, token: string) {
   const res = await fetch(`http://localhost:8080/v1/eventos/${id}`, {
     headers: {
       'Content-Type': 'application/json',
-      // atualizar para pegar o token do login
-      Authorization: 'Bearer cDIxMnBvaW5teGEuMTcxMDAzMTA5Ng==',
+      Authorization: `Bearer ${token}`,
     },
   });
 

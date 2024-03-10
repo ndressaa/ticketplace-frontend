@@ -2,9 +2,14 @@
 
 import { signUp } from '@/api';
 import { Header } from '@/components';
+import { useAppContext } from '@/context';
+import { useRouter } from 'next/navigation';
 import { Container, Content, FormDiv, Title } from './styles';
 
 export default async function Page() {
+  const router = useRouter();
+  const { globalState } = useAppContext();
+
   async function onSubmit(event: any) {
     event.preventDefault();
 
@@ -19,8 +24,12 @@ export default async function Page() {
     const signup = await signUp({ nome, email, senha, cpf });
 
     if (signup) {
+      const { token, user } = signup;
+      globalState['user_id'] = user.id;
+      globalState['auth_token'] = token;
+
       alert('Cadastro realizado com sucesso!');
-      window.location.href = '/';
+      router.push('/');
     }
   }
 

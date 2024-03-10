@@ -1,3 +1,4 @@
+import { AppWrapper } from '@/context';
 import type { Metadata } from 'next';
 import { Roboto_Flex } from 'next/font/google';
 import { GlobalStyle } from './global.styles';
@@ -16,8 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GlobalStyle />
-      <body className={robotoFlex.className}>{children}</body>
+      <AppWrapper>
+        <GlobalStyle />
+        <body className={robotoFlex.className}>{children}</body>
+      </AppWrapper>
     </html>
   );
 }

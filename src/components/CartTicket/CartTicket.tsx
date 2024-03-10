@@ -1,16 +1,19 @@
 import { getEventById, getTicketById } from '@/api';
+import { useAppContext } from '@/context';
 import { ticketType } from '@/utils';
 import { RemoveTicket, Ticket, TicketPrice, Title } from './CartTicket.styles';
 
 export const CartTicket = async (props: { cartTicket: any }) => {
+  const { globalState } = useAppContext();
+
   const { cartTicket } = props;
 
   const { id_ingresso } = cartTicket;
 
-  const ticket = await getTicketById(id_ingresso);
+  const ticket = await getTicketById(id_ingresso, globalState.auth_token);
   const { valor, tipo, id_evento } = ticket[0];
 
-  const event = await getEventById(id_evento);
+  const event = await getEventById(id_evento, globalState.auth_token);
   const { titulo, descricao, capa } = event[0];
 
   const imageSource = `data:image/jpeg;base64, ${capa}`;

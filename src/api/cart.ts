@@ -5,14 +5,13 @@ interface IAddToCart {
   desconto: any;
 }
 
-export async function getCartByUserId(id: string) {
+export async function getCartByUserId(id: string, token: string) {
   const res = await fetch(
     `http://localhost:8080/v1/carrinho/?id_usuario-eq=${id}`,
     {
       headers: {
         'Content-Type': 'application/json',
-        // atualizar para pegar o token do login
-        Authorization: 'Bearer cDIxMnBvaW5teGEuMTcxMDAzMTA5Ng==',
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -21,18 +20,15 @@ export async function getCartByUserId(id: string) {
   return data;
 }
 
-export async function addToCart({
-  id_usuario,
-  id_ingresso,
-  classe,
-  desconto,
-}: IAddToCart) {
+export async function addToCart(
+  { id_usuario, id_ingresso, classe, desconto }: IAddToCart,
+  token: string
+) {
   const res = await fetch(`http://localhost:8080/v1/carrinho`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // atualizar para pegar o token do login
-      Authorization: 'Bearer cDIxMnBvaW5teGEuMTcxMDAzMTA5Ng==',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify([
       {

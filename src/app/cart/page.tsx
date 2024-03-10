@@ -1,14 +1,25 @@
+'use client';
+
 import { getCartByUserId, getTicketById } from '@/api';
 import { BottomNavBar, CartTicket, Header } from '@/components';
+import { useAppContext } from '@/context';
 import Link from 'next/link';
 import { Button, Container, Content, TicketsDiv, TotalValue } from './styles';
 
 export default async function Page() {
-  const cartTickets = await getCartByUserId('1');
+  const { globalState } = useAppContext();
+
+  const cartTickets = await getCartByUserId(
+    globalState.user_id,
+    globalState.auth_token
+  );
 
   const cartTicketsValue = await Promise.all(
     cartTickets.map(async (cartTicket: any): Promise<any> => {
-      const ticket = await getTicketById(cartTicket.id_ingresso);
+      const ticket = await getTicketById(
+        cartTicket.id_ingresso,
+        globalState.auth_token
+      );
       const { valor } = ticket[0];
       return valor;
     })

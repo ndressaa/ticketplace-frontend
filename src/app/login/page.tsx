@@ -2,6 +2,8 @@
 
 import { getLogin } from '@/api';
 import { Header } from '@/components';
+import { useAppContext } from '@/context';
+import { useRouter } from 'next/navigation';
 import {
   Container,
   Content,
@@ -13,6 +15,9 @@ import {
 } from './styles';
 
 export default async function Page() {
+  const { globalState } = useAppContext();
+  const router = useRouter();
+
   async function onSubmit(event: any) {
     event.preventDefault();
 
@@ -25,8 +30,12 @@ export default async function Page() {
     const login = await getLogin({ email, password });
 
     if (login) {
+      const { token, user } = login;
+      globalState['user_id'] = user.id;
+      globalState['auth_token'] = token;
+
       alert('Login realizado com sucesso!');
-      window.location.href = '/';
+      router.push('/');
     }
   }
 

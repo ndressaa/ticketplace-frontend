@@ -2,13 +2,16 @@
 
 import { addToCart, getEventById, getTicketsByEventId } from '@/api';
 import { BottomNavBar, Header } from '@/components';
+import { useAppContext } from '@/context';
 import { formatDate } from '@/utils';
 import { Button, Container, Content, Description, Info, Title } from './styles';
 
 export default async function Page({ params }: { params: { id: string } }) {
+  const { globalState } = useAppContext();
+
   const { id } = params;
 
-  const event = await getEventById(id);
+  const event = await getEventById(id, globalState.auth_token);
 
   const { titulo, capa, data, descricao } = event[0];
 
@@ -16,20 +19,23 @@ export default async function Page({ params }: { params: { id: string } }) {
   const date = formatDate(data).split(' - ')[0];
   const time = formatDate(data).split(' - ')[1];
 
-  const eventTickets = await getTicketsByEventId(id);
+  const eventTickets = await getTicketsByEventId(id, globalState.auth_token);
   const { valor, tipo } = eventTickets[0];
   const ticketId = eventTickets[0].id;
 
   async function onClickHandler() {
-    const addedToCart = await addToCart({
-      id_usuario: '1',
-      id_ingresso: ticketId,
-      classe: tipo,
-      desconto: 0,
-    });
+    const addedToCart = await addToCart(
+      {
+        id_usuario: globalState.user_id,
+        id_ingresso: ticketId,
+        classe: tipo,
+        desconto: 0,
+      },
+      globalState.auth_token
+    );
 
     if (addedToCart) {
-      alert('Ingresso adicionado ao carrinho com sucesso');
+      alert('Ingresso adicionado ao carrinho com sucesso!');
     }
   }
 

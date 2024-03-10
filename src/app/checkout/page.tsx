@@ -1,7 +1,7 @@
 'use client';
 
 import { BottomNavBar, Header } from '@/components';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Button,
   Container,
@@ -12,13 +12,15 @@ import {
 } from './styles';
 
 export default function Page() {
+  const router = useRouter();
+
   const searchParams = useSearchParams();
   const total = searchParams.get('total');
 
   const onClickHandler = (event: any) => {
     event.preventDefault();
     alert('Pagamento realizado com sucesso!');
-    window.location.href = '/';
+    router.push('/');
   };
 
   return (

@@ -9,7 +9,7 @@ import {
 } from '@/components';
 import { Container, Content } from './styles';
 
-export default async function Home() {
+export default function Home() {
   return (
     <>
       <Header isLoginOrSignup={false} />
