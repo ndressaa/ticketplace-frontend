@@ -1,6 +1,5 @@
 'use client';
 
-import { signUp } from '@/api';
 import { Header } from '@/components';
 import { useAppContext } from '@/context';
 import { useRouter } from 'next/navigation';
@@ -22,7 +21,22 @@ export default async function Page() {
     const senha = form_values['senha'];
     const cpf = form_values['cpf'];
 
-    const signup = await signUp({ nome, email, senha, cpf });
+    const url = '/api/signup';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        nome,
+        email,
+        senha,
+        cpf,
+      }),
+    };
+
+    const response = await fetch(url, options);
+    const signup = await response.json();
 
     if (signup) {
       const { token, user } = signup;

@@ -1,6 +1,5 @@
 'use client';
 
-import { getCartByUserId, getTicketById } from '@/api';
 import { BottomNavBar, CartTicket, Header } from '@/components';
 import { useAppContext } from '@/context';
 import Link from 'next/link';
@@ -9,17 +8,38 @@ import { Button, Container, Content, TicketsDiv, TotalValue } from './styles';
 export default async function Page() {
   const { globalState } = useAppContext();
 
-  const cartTickets = await getCartByUserId(
-    globalState.user_id,
-    globalState.auth_token
-  );
+  const url = '/api/getCartByUserId';
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id: globalState.user_id,
+      token: globalState.auth_token,
+    }),
+  };
+
+  const response = await fetch(url, options);
+  const cartTickets = await response.json();
 
   const cartTicketsValue = await Promise.all(
     cartTickets.map(async (cartTicket: any): Promise<any> => {
-      const ticket = await getTicketById(
-        cartTicket.id_ingresso,
-        globalState.auth_token
-      );
+      const url = '/api/getTicketById';
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: cartTicket.id_ingresso,
+          token: globalState.auth_token,
+        }),
+      };
+
+      const response = await fetch(url, options);
+      const ticket = await response.json();
+
       const { valor } = ticket[0];
       return valor;
     })

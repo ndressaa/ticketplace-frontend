@@ -1,10 +1,9 @@
 'use client';
 
-import { getLogin } from '@/api';
 import { Header } from '@/components';
 import { useAppContext } from '@/context';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import {
   Container,
   Content,
@@ -28,7 +27,20 @@ export default async function Page() {
     const email = form_values['login-email'];
     const password = form_values['login-password'];
 
-    const login = await getLogin({ email, password });
+    const url = '/api/login';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    };
+
+    const response = await fetch(url, options);
+    const login = await response.json();
 
     if (login) {
       const { token, user } = login;

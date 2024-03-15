@@ -1,6 +1,5 @@
-'use-client';
+'use client';
 
-import { getAllEvents } from '@/api';
 import { Event } from '@/components';
 import { useAppContext } from '@/context';
 import { eventsMock } from '@/mocks';
@@ -12,14 +11,25 @@ export const EventSlider = async (props: {
   filter?: string;
 }) => {
   const { globalState } = useAppContext();
+  const { title } = props;
 
   const isLoggedIn = !!globalState.userId;
 
-  const { title } = props;
+  const url = '/api/getAllEvents';
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token: globalState.auth_token,
+    }),
+  };
 
-  const events = isLoggedIn
-    ? await getAllEvents(globalState.auth_token)
-    : eventsMock;
+  const response = await fetch(url, options);
+  const eventsApi = await response.json();
+
+  const events = isLoggedIn ? eventsApi : eventsMock;
 
   return (
     <Container>
