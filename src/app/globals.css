@@ -1,0 +1,35 @@
+:root {
+  --color-background: #fff;
+  --color-text: #121212;
+  --color-text-secondary: #260259;
+  --color-text-link: #4703a6;
+  --color-white: #f4f4f4;
+  --color-light: #dedcfb;
+  --color-primary: #5600cf;
+  --color-secondary: #5600cf;
+  --color-accent: #5600cf;
+  --color-active: #a57ae1;
+  --color-button: #ebac31;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  font-family: 'Roboto Flex', 'Roboto', sans-serif;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+a {
+  display: flex;
+  text-decoration: none;
+}
+
+a:visited {
+  color: inherit;
+}

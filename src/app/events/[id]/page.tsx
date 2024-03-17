@@ -10,6 +10,19 @@ export default async function Page({ params }: { params: { id: string } }) {
   const { globalState } = useAppContext();
   const { id } = params;
 
+  const isLoggedIn = !!globalState.userId;
+
+  if (!isLoggedIn) {
+    return (
+      <>
+        <Header isLoginOrSignup={false} />
+        <p style={{ paddingTop: '65px' }}>
+          Faça login para visualizar o evento
+        </p>
+      </>
+    );
+  }
+
   const url = '/api/getEventById';
   const options = {
     method: 'POST',

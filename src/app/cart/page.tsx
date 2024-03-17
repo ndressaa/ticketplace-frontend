@@ -8,6 +8,19 @@ import { Button, Container, Content, TicketsDiv, TotalValue } from './styles';
 export default async function Page() {
   const { globalState } = useAppContext();
 
+  const isLoggedIn = !!globalState.userId;
+
+  if (!isLoggedIn) {
+    return (
+      <>
+        <Header isLoginOrSignup={false} />
+        <p style={{ paddingTop: '65px' }}>
+          Faça login para adicionar ingressos ao carrinho
+        </p>
+      </>
+    );
+  }
+
   const url = '/api/getCartByUserId';
   const options = {
     method: 'POST',

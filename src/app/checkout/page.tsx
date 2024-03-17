@@ -16,7 +16,7 @@ export default function Page() {
   const router = useRouter();
 
   const searchParams = useSearchParams();
-  const total = searchParams.get('total');
+  const total = searchParams?.get('total');
 
   const onClickHandler = (event: any) => {
     event.preventDefault();

@@ -26,7 +26,6 @@ Na pasta raiz do projeto, rodar os comandos:
 
 ```
 npm i
-npm run build
 npm run dev
 ```
 

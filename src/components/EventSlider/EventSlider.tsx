@@ -26,8 +26,12 @@ export const EventSlider = async (props: {
     }),
   };
 
-  const response = await fetch(url, options);
-  const eventsApi = await response.json();
+  let eventsApi;
+
+  if (isLoggedIn) {
+    const response = await fetch(url, options);
+    eventsApi = await response.json();
+  }
 
   const events = isLoggedIn ? eventsApi : eventsMock;
 
