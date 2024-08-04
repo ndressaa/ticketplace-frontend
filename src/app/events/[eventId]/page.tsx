@@ -6,9 +6,13 @@ import { formatDate } from '@/utils';
 import toast from 'react-hot-toast';
 import { Button, Container, Content, Description, Info, Title } from './styles';
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: { eventId: string };
+}) {
   const { globalState } = useAppContext();
-  const { id } = params;
+  const { eventId } = params;
 
   const isLoggedIn = !!globalState.userId;
 
@@ -30,7 +34,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      id,
+      eventId,
       token: globalState.auth_token,
     }),
   };
@@ -51,7 +55,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      id,
+      eventId,
       token: globalState.auth_token,
     }),
   };
