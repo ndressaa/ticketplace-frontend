@@ -44,7 +44,7 @@ export const EventSlider = async (props: {
           .map((event: any) => {
             const link = `./events/${event.id}`;
             return (
-              <Link href={link}>
+              <Link href={link} key={`link-to-event-${event.id}`}>
                 <Event
                   imagem={event.capa}
                   titulo={event.titulo}
