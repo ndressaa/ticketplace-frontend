@@ -13,7 +13,7 @@ export const EventSlider = async (props: {
   const { globalState } = useAppContext();
   const { title } = props;
 
-  const isLoggedIn = !!globalState.userId;
+  const isLoggedIn = !!globalState.user_id;
 
   const url = '/api/getAllEvents';
   const options = {

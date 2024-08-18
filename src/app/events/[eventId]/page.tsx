@@ -14,7 +14,7 @@ export default async function Page({
   const { globalState } = useAppContext();
   const { eventId } = params;
 
-  const isLoggedIn = !!globalState.userId;
+  const isLoggedIn = !!globalState.user_id;
 
   if (!isLoggedIn) {
     return (
@@ -34,7 +34,7 @@ export default async function Page({
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      eventId,
+      id: eventId,
       token: globalState.auth_token,
     }),
   };
@@ -55,7 +55,7 @@ export default async function Page({
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      eventId,
+      id: eventId,
       token: globalState.auth_token,
     }),
   };

@@ -8,7 +8,7 @@ import { Button, Container, Content, TicketsDiv, TotalValue } from './styles';
 export default async function Page() {
   const { globalState } = useAppContext();
 
-  const isLoggedIn = !!globalState.userId;
+  const isLoggedIn = !!globalState.user_id;
 
   if (!isLoggedIn) {
     return (
