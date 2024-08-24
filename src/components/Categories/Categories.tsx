@@ -1,3 +1,5 @@
+'use client';
+
 import { FilmIcon, LectureIcon, MusicIcon } from '@/assets/icons';
 import {
   CategoriesDiv,

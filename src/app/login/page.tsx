@@ -1,9 +1,13 @@
 'use client';
 
 import { Header } from '@/components';
-import { useAppContext } from '@/context';
+import { Screen, UserType } from '@/interfaces';
+import { login } from '@/services';
+import useStore from '@/store';
 import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import Loading from '../loading';
 import {
   Container,
   Content,
@@ -14,11 +18,21 @@ import {
   Title,
 } from './styles';
 
-export default async function Page() {
-  const { globalState } = useAppContext();
+export default function Page() {
+  const [loading, setLoading] = useState(true);
+
   const router = useRouter();
 
-  async function onSubmit(event: any) {
+  const {
+    setIsLoggedIn,
+    setUserType,
+    setUserName,
+    setUserId,
+    setAuthToken,
+    setCurrentPage,
+  } = useStore();
+
+  const handleSubmit = useCallback(async (event: any) => {
     event.preventDefault();
 
     var formData = new FormData(event.target);
@@ -27,25 +41,16 @@ export default async function Page() {
     const email = form_values['login-email'];
     const password = form_values['login-password'];
 
-    const url = '/api/login';
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    };
+    const handleLogin = await login(email, password).then((result) => result);
 
-    const response = await fetch(url, options);
-    const login = await response.json();
+    if (handleLogin) {
+      const { token, user } = handleLogin;
+      setUserName(user.nome);
+      setUserId(user.id);
+      setAuthToken(token);
 
-    if (login) {
-      const { token, user } = login;
-      globalState['user_id'] = user.id;
-      globalState['auth_token'] = token;
+      setUserType(UserType.SHOPPER);
+      setIsLoggedIn(true);
 
       toast('Login realizado com sucesso!', {
         duration: 4000,
@@ -55,11 +60,20 @@ export default async function Page() {
       });
       router.push('/');
     }
+  }, []);
+
+  useEffect(() => {
+    setLoading(false);
+    setCurrentPage(Screen.LOGIN);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (
     <>
-      <Header isLoginOrSignup />
+      <Header />
       <Content>
         <Container>
           <div>
@@ -67,7 +81,7 @@ export default async function Page() {
             <Description>Digite seu e-mail e senha para entrar</Description>
           </div>
           <FormDiv>
-            <form id="login-form" onSubmit={onSubmit}>
+            <form id="login-form" onSubmit={handleSubmit}>
               <input
                 type="text"
                 id="login-email"

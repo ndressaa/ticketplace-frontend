@@ -1,43 +1,12 @@
-import { useAppContext } from '@/context';
+'use client';
+
 import { ticketType } from '@/utils';
 import { RemoveTicket, Ticket, TicketPrice, Title } from './CartTicket.styles';
 
-export const CartTicket = async (props: { cartTicket: any }) => {
-  const { globalState } = useAppContext();
-  const { cartTicket } = props;
-  const { id_ingresso } = cartTicket;
+export const CartTicket = (props: { ticket: any; event: any }) => {
+  const { ticket, event } = props;
 
-  const urlTicket = '/api/getTicketById';
-  const optionsTicket = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      id: id_ingresso,
-      token: globalState.auth_token,
-    }),
-  };
-
-  const responseTicket = await fetch(urlTicket, optionsTicket);
-  const ticket = await responseTicket.json();
-
-  const { valor, tipo, id_evento } = ticket[0];
-
-  const url = '/api/getEventById';
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      id: id_evento,
-      token: globalState.auth_token,
-    }),
-  };
-
-  const response = await fetch(url, options);
-  const event = await response.json();
+  const { valor, tipo } = ticket[0];
 
   const { titulo, descricao, capa } = event[0];
   const imageSource = `data:image/jpeg;base64, ${capa}`;

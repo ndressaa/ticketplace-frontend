@@ -1,19 +1,27 @@
 'use client';
 
 import { BottomNavBar, CartTicket, Header } from '@/components';
-import { useAppContext } from '@/context';
+import { Screen } from '@/interfaces';
+import { getCartByUserId, getEventById, getTicketById } from '@/services';
+import useStore from '@/store';
 import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
+import Loading from '../loading';
 import { Button, Container, Content, TicketsDiv, TotalValue } from './styles';
 
-export default async function Page() {
-  const { globalState } = useAppContext();
+export default function Page() {
+  const [loading, setLoading] = useState(true);
+  const [userCart, setUserCart] = useState<any>(null);
+  const [cartTickets, setCartTickets] = useState<any>(null);
+  const [events, setEvents] = useState<any>(null);
+  const [total, setTotal] = useState(null);
 
-  const isLoggedIn = !!globalState.user_id;
+  const { isLoggedIn, userId, authToken, setCurrentPage } = useStore();
 
-  if (!isLoggedIn) {
+  if (!loading && !isLoggedIn) {
     return (
       <>
-        <Header isLoginOrSignup={false} />
+        <Header />
         <p style={{ paddingTop: '65px' }}>
           Faça login para adicionar ingressos ao carrinho
         </p>
@@ -21,56 +29,59 @@ export default async function Page() {
     );
   }
 
-  const url = '/api/getCartByUserId';
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      id: globalState.user_id,
-      token: globalState.auth_token,
-    }),
-  };
+  const fetchEvents = useCallback(async (data: any) => {
+    await Promise.all(
+      data.map(
+        async (ticket: any) =>
+          await getEventById(ticket[0].id_evento, authToken)
+      )
+    ).then((result) => setEvents(result));
+  }, []);
 
-  const response = await fetch(url, options);
-  const cartTickets = await response.json();
+  const fetchTickets = useCallback(async (data: any) => {
+    await Promise.all(
+      data.map(
+        async (ticket: any) =>
+          await getTicketById(ticket.id_ingresso, authToken)
+      )
+    ).then((result) => {
+      setCartTickets(result);
+      setTotal(result.flat().reduce((sum, item) => sum + item.valor, 0));
+      fetchEvents(result);
+    });
+  }, []);
 
-  const cartTicketsValue = await Promise.all(
-    cartTickets.map(async (cartTicket: any): Promise<any> => {
-      const url = '/api/getTicketById';
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: cartTicket.id_ingresso,
-          token: globalState.auth_token,
-        }),
-      };
+  useEffect(() => {
+    if (userId && authToken) {
+      getCartByUserId(userId, authToken).then((data) => {
+        setUserCart(data);
+        fetchTickets(data);
+      });
+    }
+  }, [userId, authToken]);
 
-      const response = await fetch(url, options);
-      const ticket = await response.json();
+  useEffect(() => {
+    userCart && cartTickets && total && events && setLoading(false);
+    setCurrentPage(Screen.CART);
+  }, [userCart, cartTickets, total, events]);
 
-      const { valor } = ticket[0];
-      return valor;
-    })
-  );
-
-  const total = cartTicketsValue.reduce((acc, value) => {
-    return acc + value;
-  }, 0);
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
-      <Header isLoginOrSignup={false} currentPage="cart/checkout" />
+      <Header />
 
       <Content>
         <Container>
           <TicketsDiv>
-            {cartTickets.map((ticket: any) => (
-              <CartTicket cartTicket={ticket} />
+            {cartTickets.map((ticket: any, i: number) => (
+              <CartTicket
+                ticket={ticket}
+                event={events[i]}
+                key={`ticket-${i}`}
+              />
             ))}
           </TicketsDiv>
 

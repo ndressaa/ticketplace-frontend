@@ -1,4 +1,3 @@
-import { AppWrapper } from '@/context';
 import type { Metadata } from 'next';
 import { Roboto_Flex } from 'next/font/google';
 import { Toaster } from 'react-hot-toast';
@@ -18,12 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <AppWrapper>
-        <body className={robotoFlex.className}>
-          <Toaster position="bottom-center" />
-          {children}
-        </body>
-      </AppWrapper>
+      <body className={robotoFlex.className}>
+        <Toaster position="bottom-center" />
+        {children}
+      </body>
     </html>
   );
 }

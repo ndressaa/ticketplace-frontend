@@ -1,16 +1,30 @@
 'use client';
 
 import { Header } from '@/components';
-import { useAppContext } from '@/context';
+import { Screen, UserType } from '@/interfaces';
+import { signUp } from '@/services';
+import useStore from '@/store';
 import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import Loading from '../loading';
 import { Container, Content, FormDiv, Title } from './styles';
 
-export default async function Page() {
-  const router = useRouter();
-  const { globalState } = useAppContext();
+export default function Page() {
+  const [loading, setLoading] = useState(true);
 
-  async function onSubmit(event: any) {
+  const router = useRouter();
+
+  const {
+    setIsLoggedIn,
+    setUserType,
+    setUserName,
+    setUserId,
+    setAuthToken,
+    setCurrentPage,
+  } = useStore();
+
+  const handleSubmit = useCallback(async (event: any) => {
     event.preventDefault();
 
     var formData = new FormData(event.target);
@@ -21,27 +35,18 @@ export default async function Page() {
     const senha = form_values['senha'];
     const cpf = form_values['cpf'];
 
-    const url = '/api/signup';
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        nome,
-        email,
-        senha,
-        cpf,
-      }),
-    };
+    const handleSignUp = await signUp(nome, email, senha, cpf).then(
+      (result) => result
+    );
 
-    const response = await fetch(url, options);
-    const signup = await response.json();
+    if (handleSignUp) {
+      const { token, user } = handleSignUp;
+      setUserName(user.nome);
+      setUserId(user.id);
+      setAuthToken(token);
 
-    if (signup) {
-      const { token, user } = signup;
-      globalState['user_id'] = user.id;
-      globalState['auth_token'] = token;
+      setUserType(UserType.SHOPPER);
+      setIsLoggedIn(true);
 
       toast('Cadastro realizado com sucesso!', {
         duration: 4000,
@@ -51,20 +56,35 @@ export default async function Page() {
       });
       router.push('/');
     }
+  }, []);
+
+  useEffect(() => {
+    setLoading(false);
+    setCurrentPage(Screen.SIGNUP);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
   }
 
   return (
     <>
-      <Header isLoginOrSignup />
+      <Header />
 
       <Content>
         <Container>
           <Title>Cadastrar Usuário</Title>
 
           <FormDiv>
-            <form id="signup-form" onSubmit={onSubmit}>
+            <form id="signup-form" onSubmit={handleSubmit}>
               <input type="text" id="nome" name="nome" placeholder="Nome" />
-              <input type="text" id="cpf" name="cpf" placeholder="CPF" />
+              <input
+                type="text"
+                id="cpf"
+                name="cpf"
+                placeholder="CPF"
+                maxLength={11}
+              />
               <input type="text" id="email" name="email" placeholder="E-mail" />
               <input
                 type="password"

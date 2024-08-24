@@ -1,25 +1,27 @@
 'use client';
 
+import Loading from '@/app/loading';
 import { BottomNavBar, Header } from '@/components';
-import { useAppContext } from '@/context';
+import { Screen } from '@/interfaces';
+import { addToCart, getEventById, getTicketsByEventId } from '@/services';
+import useStore from '@/store';
 import { formatDate } from '@/utils';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Button, Container, Content, Description, Info, Title } from './styles';
 
-export default async function Page({
-  params,
-}: {
-  params: { eventId: string };
-}) {
-  const { globalState } = useAppContext();
+export default function Page({ params }: { params: { eventId: string } }) {
   const { eventId } = params;
 
-  const isLoggedIn = !!globalState.user_id;
+  const [loading, setLoading] = useState(true);
+  const [event, setEvent] = useState<any>(null);
+  const [eventTicket, setEventTicket] = useState<any>(null);
+  const { isLoggedIn, userId, authToken, setCurrentPage } = useStore();
 
-  if (!isLoggedIn) {
+  if (!loading && !isLoggedIn) {
     return (
       <>
-        <Header isLoginOrSignup={false} />
+        <Header />
         <p style={{ paddingTop: '65px' }}>
           Faça login para visualizar o evento
         </p>
@@ -27,65 +29,27 @@ export default async function Page({
     );
   }
 
-  const url = '/api/getEventById';
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      id: eventId,
-      token: globalState.auth_token,
-    }),
-  };
+  useEffect(() => {
+    if (authToken) {
+      getEventById(eventId, authToken).then((data) => setEvent(data[0]));
+      getTicketsByEventId(eventId, authToken).then((data) =>
+        setEventTicket(data[0])
+      );
+    }
+  }, [authToken]);
 
-  const response = await fetch(url, options);
-  const event = await response.json();
-
-  const { titulo, capa, data, descricao } = event[0];
-
-  const imageSource = `data:image/jpeg;base64, ${capa}`;
-  const date = formatDate(data).split(' - ')[0];
-  const time = formatDate(data).split(' - ')[1];
-
-  const urlTickets = '/api/getTicketsByEventId';
-  const optionsTickets = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      id: eventId,
-      token: globalState.auth_token,
-    }),
-  };
-
-  const responseTickets = await fetch(urlTickets, optionsTickets);
-  const eventTickets = await responseTickets.json();
-
-  const { valor, tipo } = eventTickets[0];
-  const ticketId = eventTickets[0].id;
+  useEffect(() => {
+    event && eventTicket && setLoading(false);
+    setCurrentPage(Screen.EVENTS);
+  }, [event, eventTicket]);
 
   async function onClickHandler() {
-    const url = '/api/addToCart';
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        data: {
-          id_usuario: globalState.user_id,
-          id_ingresso: ticketId,
-          classe: tipo,
-          desconto: 0,
-        },
-        token: globalState.auth_token,
-      }),
-    };
-
-    const response = await fetch(url, options);
-    const addedToCart = await response.json();
+    const addedToCart = await addToCart(
+      userId,
+      eventTicket.id,
+      eventTicket.tipo,
+      authToken
+    );
 
     if (addedToCart) {
       toast('Ingresso adicionado ao carrinho com sucesso!', {
@@ -97,25 +61,34 @@ export default async function Page({
     }
   }
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
-      <Header isLoginOrSignup={false} />
+      <Header />
 
       <Content>
         <Container>
-          <Title>{titulo}</Title>
+          <Title>{event.titulo}</Title>
 
-          <img src={imageSource} alt="Show" width={340} height={165} />
+          <img
+            src={`data:image/jpeg;base64, ${event.capa}`}
+            alt="Show"
+            width={340}
+            height={165}
+          />
 
           <Info>
             <p>
               <b>Data</b>
-              {date}
+              {formatDate(event.data).split(' - ')[0]}
             </p>
 
             <p>
               <b>Horário</b>
-              {time}
+              {formatDate(event.data).split(' - ')[1]}
             </p>
 
             <p>
@@ -130,17 +103,17 @@ export default async function Page({
 
             <p>
               <b>Valor</b>
-              R$ {valor}
+              R$ {eventTicket.valor}
             </p>
           </Info>
 
-          <Description>{descricao}</Description>
+          <Description>{event.descricao}</Description>
 
           <Button onClick={onClickHandler}>Adicionar ao carrinho</Button>
         </Container>
       </Content>
 
-      <BottomNavBar currentPage="events" />
+      <BottomNavBar />
     </>
   );
 }
