@@ -1,8 +1,12 @@
 'use client';
 
 import { BottomNavBar, Header } from '@/components';
+import { Screen } from '@/interfaces';
+import useStore from '@/store';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import Loading from '../loading';
 import {
   Button,
   Container,
@@ -13,10 +17,14 @@ import {
 } from './styles';
 
 export default function Page() {
+  const [loading, setLoading] = useState(true);
+
   const router = useRouter();
 
   const searchParams = useSearchParams();
   const total = searchParams?.get('total');
+
+  const { setCurrentPage } = useStore();
 
   const onClickHandler = (event: any) => {
     event.preventDefault();
@@ -29,9 +37,18 @@ export default function Page() {
     router.push('/');
   };
 
+  useEffect(() => {
+    setLoading(false);
+    setCurrentPage(Screen.CHECKOUT);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
-      <Header isLoginOrSignup={false} currentPage="cart/checkout" />
+      <Header />
 
       <Content>
         <Container>

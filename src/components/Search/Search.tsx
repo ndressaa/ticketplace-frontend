@@ -1,3 +1,5 @@
+'use client';
+
 import { SearchIcon } from '@/assets/icons';
 import { SearchBar } from './Search.styles';
 

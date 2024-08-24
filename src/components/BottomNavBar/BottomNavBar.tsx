@@ -1,13 +1,16 @@
+'use client';
+
 import {
   EventCalendarIcon,
   HomeIcon,
   ProfileIcon,
   PromotionIcon,
 } from '@/assets/icons';
+import useStore from '@/store';
 import { NavBar, StyledLink } from './BottomNavBar.styles';
 
-export const BottomNavBar = (props: { currentPage?: string }) => {
-  const { currentPage } = props;
+export const BottomNavBar = () => {
+  const { currentPage } = useStore();
 
   return (
     <NavBar>
