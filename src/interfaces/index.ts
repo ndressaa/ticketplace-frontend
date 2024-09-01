@@ -1,5 +1,5 @@
 export enum UserType {
-  SHOPPER = 'shopper',
+  BUYER = 'buyer',
   SELLER = 'seller',
 }
 
@@ -10,4 +10,6 @@ export enum Screen {
   EVENTS = 'events',
   CART = 'cart',
   CHECKOUT = 'checkout',
+  TICKETS = 'tickets',
+  PROFILE = 'profile',
 }

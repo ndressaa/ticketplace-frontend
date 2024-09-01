@@ -1,12 +1,18 @@
 'use client';
 
-import { BottomNavBar, EventSlider, Header, Search } from '@/components';
+import Loading from '@/app/loading';
+import {
+  BottomNavBar,
+  Categories,
+  EventSlider,
+  Header,
+  Search,
+} from '@/components';
 import { Screen } from '@/interfaces';
 import { eventsMock } from '@/mocks';
 import { getAllEvents } from '@/services';
 import useStore from '@/store';
 import { useEffect, useState } from 'react';
-import Loading from '../loading';
 import { Container, Content } from './styles';
 
 export default function Page() {
@@ -30,7 +36,7 @@ export default function Page() {
 
   useEffect(() => {
     events && setLoading(false);
-    setCurrentPage(Screen.EVENTS);
+    setCurrentPage(Screen.HOME);
   }, [events]);
 
   if (loading) {
@@ -45,11 +51,11 @@ export default function Page() {
         <Container>
           <Search />
 
-          <EventSlider title="Gênero" events={events} />
+          <Categories />
 
-          <EventSlider title="Artista" events={events} />
+          <EventSlider title="Eventos Populares" events={events} />
 
-          <EventSlider title="TOP 10 Shows" events={events} />
+          <EventSlider title="Promoções" events={events} />
         </Container>
       </Content>
 
