@@ -29,6 +29,8 @@ export default function Page() {
           setEvents(data);
         }
       });
+    } else {
+      setEvents(eventsMock);
     }
   }, [authToken]);
 

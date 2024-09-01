@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { styled } from 'styled-components';
 
 export const Content = styled.div`
@@ -14,41 +15,27 @@ export const Container = styled.div`
   max-width: 340px;
   display: flex;
   flex-direction: column;
+  gap: 55px;
+  justify-content: center;
 `;
 
-export const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 40px 0 25px 0;
-`;
-
-export const FormDiv = styled.div`
+export const StyledLink = styled(Link)`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 18px;
+`;
 
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  input {
-    height: 43px;
-    background-color: var(--color-light);
-    border: none;
-    border-radius: 12px;
-    padding: 8px;
-  }
-
-  button {
-    height: 55px;
-    background-color: var(--color-button);
-    border: none;
-    border-radius: 12px;
-    color: var(--color-text-secondary);
-    font-size: 20px;
-    font-weight: 500;
-    margin-top: 12px;
-  }
+export const StyledButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 165px;
+  height: 55px;
+  background-color: var(--color-button);
+  border: none;
+  border-radius: 12px;
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  font-weight: 500;
 `;

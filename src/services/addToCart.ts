@@ -4,8 +4,6 @@ export async function addToCart(
   ticketType: string,
   token: string
 ) {
-  console.log(userId, ticketId, ticketType, token);
-
   const url = '/api/addToCart';
   const options = {
     method: 'POST',

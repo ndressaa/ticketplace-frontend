@@ -11,7 +11,7 @@ import { Location, StyledHeader } from './Header.styles';
 export const Header = () => {
   const { isLoggedIn, userType, currentPage } = useStore();
 
-  if (isLoggedIn && userType === UserType.SHOPPER) {
+  if (isLoggedIn && userType === UserType.BUYER) {
     return (
       <StyledHeader>
         <Link href="/">
