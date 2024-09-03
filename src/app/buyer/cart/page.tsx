@@ -6,7 +6,7 @@ import { getCartByUserId, getEventById, getTicketById } from '@/services';
 import useStore from '@/store';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
-import Loading from '../loading';
+import Loading from '../../loading';
 import { Button, Container, Content, TicketsDiv, TotalValue } from './styles';
 
 export default function Page() {
@@ -90,7 +90,9 @@ export default function Page() {
             <p>R$ {total}</p>
           </TotalValue>
 
-          <Link href={{ pathname: '/checkout', query: { total: `${total}` } }}>
+          <Link
+            href={{ pathname: '/buyer/checkout', query: { total: `${total}` } }}
+          >
             <Button>Checkout</Button>
           </Link>
         </Container>

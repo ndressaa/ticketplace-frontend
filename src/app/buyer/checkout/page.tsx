@@ -6,7 +6,7 @@ import useStore from '@/store';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import Loading from '../loading';
+import Loading from '../../loading';
 import {
   Button,
   Container,

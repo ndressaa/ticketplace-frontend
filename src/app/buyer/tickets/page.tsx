@@ -30,7 +30,7 @@ export default function Page() {
           <Title>Meus Ingressos</Title>
 
           <Tickets>
-            <Link href="">
+            <Link href={`./tickets/1`}>
               <Ticket>
                 <h3>ElectroBlast Rave</h3>
                 <p>22/09/2024 - 00:00</p>

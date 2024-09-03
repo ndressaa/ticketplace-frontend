@@ -22,7 +22,7 @@ export const Header = () => {
           <p>São Paulo</p>
         </Location>
         <Link
-          href="/cart"
+          href="/buyer/cart"
           className={
             ((currentPage === 'cart' || currentPage === 'checkout') &&
               'ativo') ||
