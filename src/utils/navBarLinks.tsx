@@ -63,7 +63,7 @@ const links: Links = {
     },
     {
       title: 'Ingressos',
-      url: '',
+      url: '/buyer/tickets',
       icon: () => <TicketIcon size="big" />,
       page: Screen.TICKETS,
     },
