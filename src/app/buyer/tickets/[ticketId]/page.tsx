@@ -1,7 +1,7 @@
 'use client';
 
 import Loading from '@/app/loading';
-import { BottomNavBar, Header } from '@/components';
+import { BottomNavBar, Header, SellModal, SwapModal } from '@/components';
 import { Screen } from '@/interfaces';
 import useStore from '@/store';
 import Link from 'next/link';
@@ -20,6 +20,8 @@ export default function Page({ params }: { params: { ticketId: string } }) {
   const { ticketId } = params;
 
   const [loading, setLoading] = useState(true);
+  const [displaySellModal, setDisplaySellModal] = useState(false);
+  const [displaySwapModal, setDisplaySwapModal] = useState(false);
   const { setCurrentPage } = useStore();
 
   useEffect(() => {
@@ -49,16 +51,23 @@ export default function Page({ params }: { params: { ticketId: string } }) {
             <Link href="">
               <Button>Detalhes</Button>
             </Link>
-            <Link href="">
-              <Button>Vender</Button>
-            </Link>
-            <Link href="">
-              <Button>Trocar</Button>
-            </Link>
+
+            <Button onClick={() => setDisplaySellModal(true)}>Vender</Button>
+
+            <Button onClick={() => setDisplaySwapModal(true)}>Trocar</Button>
+
             <Link href="">
               <Button>Gerar</Button>
             </Link>
           </ButtonsContainer>
+
+          {displaySellModal && (
+            <SellModal onClose={() => setDisplaySellModal(false)} />
+          )}
+
+          {displaySwapModal && (
+            <SwapModal onClose={() => setDisplaySwapModal(false)} />
+          )}
         </Container>
       </Content>
 

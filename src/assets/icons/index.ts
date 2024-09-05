@@ -12,6 +12,7 @@ import { PromotionIcon } from './PromotionIcon';
 import { SearchIcon } from './SearchIcon';
 import { TicketIcon } from './TicketIcon';
 import { UserIcon } from './UserIcon';
+import { WarningIcon } from './WarningIcon';
 
 export {
   CartIcon,
@@ -28,4 +29,5 @@ export {
   SearchIcon,
   TicketIcon,
   UserIcon,
+  WarningIcon,
 };

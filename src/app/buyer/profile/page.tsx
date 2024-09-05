@@ -54,7 +54,7 @@ export default function Page() {
             </button>
           </UserInfo>
           <ButtonDiv>
-            <Link href="/">
+            <Link href="/buyer/tickets">
               <button>Meus Ingressos</button>
             </Link>
             <button onClick={logoff}>Sair</button>

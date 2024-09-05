@@ -5,6 +5,8 @@ import { Event } from './Event/Event';
 import { EventSlider } from './EventSlider/EventSlider';
 import { Header } from './Header/Header';
 import { Search } from './Search/Search';
+import { SellModal } from './SellModal/SellModal';
+import { SwapModal } from './SwapModal/SwapModal';
 
 export {
   BottomNavBar,
@@ -14,4 +16,6 @@ export {
   EventSlider,
   Header,
   Search,
+  SellModal,
+  SwapModal,
 };
