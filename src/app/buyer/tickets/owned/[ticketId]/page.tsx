@@ -56,7 +56,7 @@ export default function Page({ params }: { params: { ticketId: string } }) {
 
             <Button onClick={() => setDisplaySwapModal(true)}>Trocar</Button>
 
-            <Link href="">
+            <Link href="/buyer/tickets/generated/1">
               <Button>Gerar</Button>
             </Link>
           </ButtonsContainer>

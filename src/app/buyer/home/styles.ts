@@ -17,3 +17,19 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 25px;
 `;
+
+export const Button = styled.button`
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  color: #260259;
+  font-size: 20px;
+  font-weight: 600;
+  background: none;
+  border: 1px solid #260259;
+  border-radius: 12px;
+  margin-bottom: 30px;
+`;

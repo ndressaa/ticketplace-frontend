@@ -7,6 +7,7 @@ import { FilmIcon } from './FilmIcon';
 import { HomeIcon } from './HomeIcon';
 import { LectureIcon } from './LectureIcon';
 import { LocationIcon } from './LocationIcon';
+import { MarketIcon } from './MarketIcon';
 import { MusicIcon } from './MusicIcon';
 import { PromotionIcon } from './PromotionIcon';
 import { SearchIcon } from './SearchIcon';
@@ -24,6 +25,7 @@ export {
   HomeIcon,
   LectureIcon,
   LocationIcon,
+  MarketIcon,
   MusicIcon,
   PromotionIcon,
   SearchIcon,

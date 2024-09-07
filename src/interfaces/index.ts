@@ -13,3 +13,8 @@ export enum Screen {
   TICKETS = 'tickets',
   PROFILE = 'profile',
 }
+
+export type SwapTickets = {
+  current: any;
+  offered: any;
+};

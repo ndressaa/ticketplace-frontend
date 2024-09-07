@@ -1,6 +1,6 @@
 'use client';
 
-import { Screen, UserType } from '@/interfaces';
+import { Screen, SwapTickets, UserType } from '@/interfaces';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -13,6 +13,7 @@ type State = {
   userId?: number;
   authToken?: string;
   currentPage?: Screen;
+  swapTickets?: SwapTickets;
 };
 
 const initialState: State = {
@@ -24,6 +25,7 @@ const initialState: State = {
   userId: undefined,
   authToken: undefined,
   currentPage: undefined,
+  swapTickets: { current: undefined, offered: undefined },
 };
 
 const useStore = create<any>()(
@@ -38,6 +40,7 @@ const useStore = create<any>()(
       setUserId: (id: number) => set({ userId: id }),
       setAuthToken: (token: string) => set({ authToken: token }),
       setCurrentPage: (page: Screen) => set({ currentPage: page }),
+      setSwapTickets: (tickets: SwapTickets) => set({ swapTickets: tickets }),
       reset: () => set(initialState),
     }),
     {

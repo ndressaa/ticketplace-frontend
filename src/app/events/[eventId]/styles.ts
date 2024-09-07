@@ -43,7 +43,18 @@ export const Info = styled.div`
     display: inline-block;
     width: 100px;
   }
+
+  .strikethrough {
+    text-decoration: line-through;
+    margin-right: 20px;
+  }
 `;
+
+export const Price = styled.div`
+  display: flex;
+`;
+
+export const Discount = styled.div``;
 
 export const Description = styled.p`
   font-size: 14px;

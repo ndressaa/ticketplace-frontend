@@ -1,21 +1,35 @@
 'use client';
 
 import Loading from '@/app/loading';
-import { BottomNavBar, Header } from '@/components';
+import { BottomNavBar, Header, OfferModal } from '@/components';
 import { Screen } from '@/interfaces';
 import { addToCart, getEventById, getTicketsByEventId } from '@/services';
 import useStore from '@/store';
 import { formatDate } from '@/utils';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Button, Container, Content, Description, Info, Title } from './styles';
+import {
+  Button,
+  Container,
+  Content,
+  Description,
+  Info,
+  Price,
+  Title,
+} from './styles';
 
 export default function Page({ params }: { params: { eventId: string } }) {
   const { eventId } = params;
 
+  const searchParams = useSearchParams();
+  const action = searchParams?.get('action');
+  const discount = searchParams?.get('discount');
+
   const [loading, setLoading] = useState(true);
   const [event, setEvent] = useState<any>(null);
   const [eventTicket, setEventTicket] = useState<any>(null);
+  const [displayOfferModal, setDisplayOfferModal] = useState(false);
   const { isLoggedIn, userId, authToken, setCurrentPage } = useStore();
 
   if (!loading && !isLoggedIn) {
@@ -101,15 +115,30 @@ export default function Page({ params }: { params: { eventId: string } }) {
               Rua das Rosas, 123 - Vila Florido, São Paulo - SP
             </p>
 
-            <p>
+            <Price>
               <b>Valor</b>
-              R$ {eventTicket.valor}
-            </p>
+              <span className={discount ? 'strikethrough' : undefined}>
+                R$ {eventTicket.valor}
+              </span>
+              {discount && `R$ ${discount}`}
+            </Price>
           </Info>
 
           <Description>{event.descricao}</Description>
 
-          <Button onClick={onClickHandler}>Adicionar ao carrinho</Button>
+          {(action === 'buy' || action === null) && (
+            <Button onClick={onClickHandler}>Adicionar ao carrinho</Button>
+          )}
+
+          {action === 'swap' && (
+            <Button onClick={() => setDisplayOfferModal(true)}>
+              Oferecer ingresso para troca
+            </Button>
+          )}
+
+          {displayOfferModal && (
+            <OfferModal onClose={() => setDisplayOfferModal(false)} />
+          )}
         </Container>
       </Content>
 

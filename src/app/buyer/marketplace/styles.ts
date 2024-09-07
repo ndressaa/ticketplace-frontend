@@ -12,24 +12,14 @@ export const Content = styled.div`
 export const Container = styled.div`
   width: 100%;
   max-width: 340px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
-  padding-top: 20px;
-  gap: 20px;
+  gap: 25px;
 `;
 
-export const Button = styled.button`
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  color: #260259;
-  font-size: 20px;
+export const Title = styled.h1`
+  font-size: 22px;
   font-weight: 600;
-  background: none;
-  border: 1px solid #260259;
-  border-radius: 12px;
-  margin-bottom: 30px;
+  color: var(--color-text);
 `;

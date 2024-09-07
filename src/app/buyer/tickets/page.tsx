@@ -30,12 +30,20 @@ export default function Page() {
           <Title>Meus Ingressos</Title>
 
           <Tickets>
-            <Link href={`./tickets/1`}>
+            <Link href={`./tickets/owned/1`}>
               <Ticket>
                 <h3>ElectroBlast Rave</h3>
                 <p>22/09/2024 - 00:00</p>
                 <p>Allianz Parque - São Paulo</p>
                 <Badge color="#29E731">Adquirido</Badge>
+              </Ticket>
+            </Link>
+            <Link href={`./tickets/exchange/1`}>
+              <Ticket>
+                <h3>Adventure Quest Expo</h3>
+                <p>22/09/2024 - 00:00</p>
+                <p>Allianz Parque - São Paulo</p>
+                <Badge color="#F0691D">Disponível para troca</Badge>
               </Ticket>
             </Link>
           </Tickets>

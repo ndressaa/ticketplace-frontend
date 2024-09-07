@@ -13,6 +13,7 @@ export const BottomNavBar = () => {
     <NavBar>
       {links.map((item, index) => (
         <StyledLink
+          key={`nav-link-${index}`}
           href={item.url}
           className={(currentPage === item.page && 'ativo') || undefined}
         >

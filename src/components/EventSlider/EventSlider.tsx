@@ -18,7 +18,7 @@ export const EventSlider = (props: {
         {events
           .sort(() => Math.random() - 0.5)
           .map((event: any) => {
-            const link = `./events/${event.id}`;
+            const link = `/events/${event.id}`;
             return (
               <Link href={link} key={`link-to-event-${event.id}`}>
                 <Event

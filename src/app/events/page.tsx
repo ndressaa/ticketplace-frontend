@@ -1,13 +1,15 @@
 'use client';
 
+import { MarketIcon } from '@/assets/icons';
 import { BottomNavBar, EventSlider, Header, Search } from '@/components';
 import { Screen } from '@/interfaces';
 import { eventsMock } from '@/mocks';
 import { getAllEvents } from '@/services';
 import useStore from '@/store';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Loading from '../loading';
-import { Container, Content } from './styles';
+import { Button, Container, Content } from './styles';
 
 export default function Page() {
   const [loading, setLoading] = useState(true);
@@ -50,6 +52,13 @@ export default function Page() {
           <EventSlider title="Artista" events={events} />
 
           <EventSlider title="TOP 10 Shows" events={events} />
+
+          <Link href="/buyer/marketplace">
+            <Button>
+              <MarketIcon size="40" color="#260259" />
+              Marketplace
+            </Button>
+          </Link>
         </Container>
       </Content>
 
