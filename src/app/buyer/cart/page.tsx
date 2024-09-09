@@ -4,7 +4,7 @@ import { BottomNavBar, CartTicket, Header } from '@/components';
 import { Screen } from '@/interfaces';
 import { getCartByUserId, getEventById, getTicketById } from '@/services';
 import useStore from '@/store';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import Loading from '../../loading';
 import { Button, Container, Content, TicketsDiv, TotalValue } from './styles';
@@ -16,7 +16,8 @@ export default function Page() {
   const [events, setEvents] = useState<any>(null);
   const [total, setTotal] = useState(null);
 
-  const { isLoggedIn, userId, authToken, setCurrentPage } = useStore();
+  const router = useRouter();
+  const { isLoggedIn, userId, authToken, setCurrentPage, setCart } = useStore();
 
   if (!loading && !isLoggedIn) {
     return (
@@ -61,9 +62,14 @@ export default function Page() {
   }, [userId, authToken]);
 
   useEffect(() => {
-    userCart && cartTickets && total && events && setLoading(false);
+    userCart && cartTickets && events && setLoading(false);
     setCurrentPage(Screen.CART);
   }, [userCart, cartTickets, total, events]);
+
+  const handleClick = () => {
+    setCart(cartTickets.map((ticket: any) => ticket[0].id_evento));
+    router.push(`/buyer/checkout?total=${total}`);
+  };
 
   if (loading) {
     return <Loading />;
@@ -76,25 +82,29 @@ export default function Page() {
       <Content>
         <Container>
           <TicketsDiv>
-            {cartTickets.map((ticket: any, i: number) => (
-              <CartTicket
-                ticket={ticket}
-                event={events[i]}
-                key={`ticket-${i}`}
-              />
-            ))}
+            {cartTickets?.length ? (
+              cartTickets?.map((ticket: any, i: number) => (
+                <CartTicket
+                  ticket={ticket}
+                  event={events[i]}
+                  key={`ticket-${i}`}
+                />
+              ))
+            ) : (
+              <p>Seu carrinho está vazio</p>
+            )}
           </TicketsDiv>
 
-          <TotalValue>
-            <p>Total:</p>
-            <p>R$ {total}</p>
-          </TotalValue>
+          {Boolean(cartTickets?.length) && (
+            <>
+              <TotalValue>
+                <p>Total:</p>
+                <p>R$ {total}</p>
+              </TotalValue>
 
-          <Link
-            href={{ pathname: '/buyer/checkout', query: { total: `${total}` } }}
-          >
-            <Button>Checkout</Button>
-          </Link>
+              <Button onClick={handleClick}>Checkout</Button>
+            </>
+          )}
         </Container>
       </Content>
 

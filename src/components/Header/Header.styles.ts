@@ -11,6 +11,7 @@ export const StyledHeader = styled.header`
 
   position: absolute;
   width: 100%;
+  z-index: 500;
 
   a {
     padding: 15px 25px;

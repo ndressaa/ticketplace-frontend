@@ -2,9 +2,10 @@
 
 import { BottomNavBar, Header } from '@/components';
 import { Screen } from '@/interfaces';
+import { buyTickets } from '@/services';
 import useStore from '@/store';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import Loading from '../../loading';
 import {
@@ -24,18 +25,29 @@ export default function Page() {
   const searchParams = useSearchParams();
   const total = searchParams?.get('total');
 
-  const { setCurrentPage } = useStore();
+  const { userId, authToken, setCurrentPage, cart, setCart, setMyTickets } =
+    useStore();
 
-  const onClickHandler = (event: any) => {
+  const onClickHandler = useCallback(async (event: any) => {
     event.preventDefault();
-    toast('Pagamento realizado com sucesso!', {
-      duration: 4000,
-      position: 'top-center',
-      style: { backgroundColor: 'var(--color-light)' },
-      icon: '✅',
-    });
-    router.push('/');
-  };
+
+    const tickets = cart.map((ticket: any) => ticket.id_ingresso);
+
+    const checkout = await buyTickets(userId, tickets, authToken);
+
+    setMyTickets(cart.map((ticket: any) => ({ id: ticket, status: 'owned' })));
+    setCart(null);
+
+    if (checkout) {
+      toast('Pagamento realizado com sucesso!', {
+        duration: 4000,
+        position: 'top-center',
+        style: { backgroundColor: 'var(--color-light)' },
+        icon: '✅',
+      });
+      router.push('/');
+    }
+  }, []);
 
   useEffect(() => {
     setLoading(false);

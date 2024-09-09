@@ -41,6 +41,9 @@ export const Ticket = styled.div`
   height: 165px;
   position: relative;
   width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   h3 {
     font-size: 18px;

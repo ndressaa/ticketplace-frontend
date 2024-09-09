@@ -13,6 +13,8 @@ type State = {
   userId?: number;
   authToken?: string;
   currentPage?: Screen;
+  cart?: any;
+  myTickets?: any;
   swapTickets?: SwapTickets;
 };
 
@@ -25,6 +27,8 @@ const initialState: State = {
   userId: undefined,
   authToken: undefined,
   currentPage: undefined,
+  cart: undefined,
+  myTickets: undefined,
   swapTickets: { current: undefined, offered: undefined },
 };
 
@@ -40,6 +44,8 @@ const useStore = create<any>()(
       setUserId: (id: number) => set({ userId: id }),
       setAuthToken: (token: string) => set({ authToken: token }),
       setCurrentPage: (page: Screen) => set({ currentPage: page }),
+      setCart: (tickets: any) => set({ cart: tickets }),
+      setMyTickets: (tickets: any) => set({ myTickets: tickets }),
       setSwapTickets: (tickets: SwapTickets) => set({ swapTickets: tickets }),
       reset: () => set(initialState),
     }),

@@ -40,7 +40,7 @@ export const Ticket = (params: TicketProps) => {
         <button>Detalhes</button>
         <Link
           href={{
-            pathname: '/events/2',
+            pathname: '/events/5',
             query: ticketQuery,
           }}
         >

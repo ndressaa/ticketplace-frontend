@@ -4,15 +4,19 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const id = req.body['id'];
   const token = req.body['token'];
 
   try {
-    const response = await fetch('http://localhost:8080/v1/infoEventos', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `http://localhost:8080/v1/ingressosComprados/${id}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     const result = await response.json();
     res.status(200).json(result);

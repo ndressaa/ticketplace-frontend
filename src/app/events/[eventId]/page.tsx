@@ -137,7 +137,10 @@ export default function Page({ params }: { params: { eventId: string } }) {
           )}
 
           {displayOfferModal && (
-            <OfferModal onClose={() => setDisplayOfferModal(false)} />
+            <OfferModal
+              eventName={event.titulo}
+              onClose={() => setDisplayOfferModal(false)}
+            />
           )}
         </Container>
       </Content>
