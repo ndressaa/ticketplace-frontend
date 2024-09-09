@@ -8,7 +8,7 @@ export default async function handler(
   const token = req.body['token'];
 
   try {
-    const response = await fetch(`http://localhost:8080/v1/eventos/${id}`, {
+    const response = await fetch(`http://localhost:8080/v1/infoEventos/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

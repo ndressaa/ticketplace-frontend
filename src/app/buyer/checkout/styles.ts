@@ -79,7 +79,8 @@ export const PaymentForm = styled.form`
 `;
 
 export const Button = styled.button`
-  height: 55px;
+  height: 100%;
+  min-height: 55px;
   background-color: var(--color-button);
   border: none;
   border-radius: 12px;

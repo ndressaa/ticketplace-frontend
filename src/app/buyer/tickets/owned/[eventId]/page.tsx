@@ -3,7 +3,9 @@
 import Loading from '@/app/loading';
 import { BottomNavBar, Header, SellModal, SwapModal } from '@/components';
 import { Screen } from '@/interfaces';
+import { getEventById } from '@/services';
 import useStore from '@/store';
+import { badgeColor, badgeText, formatDate } from '@/utils';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import {
@@ -16,22 +18,42 @@ import {
   Title,
 } from './styles';
 
-export default function Page({ params }: { params: { ticketId: string } }) {
-  const { ticketId } = params;
+export default function Page({ params }: { params: { eventId: string } }) {
+  const { eventId } = params;
 
   const [loading, setLoading] = useState(true);
+  const [ticket, setTicket] = useState<any>(null);
   const [displaySellModal, setDisplaySellModal] = useState(false);
   const [displaySwapModal, setDisplaySwapModal] = useState(false);
-  const { setCurrentPage } = useStore();
+  const { userId, authToken, setCurrentPage } = useStore();
+
+  // const handleSell = () => {}
 
   useEffect(() => {
-    setLoading(false);
+    if (userId && authToken) {
+      getEventById(eventId, authToken).then((data) => {
+        if (Object.keys(data).includes('error')) {
+          setTicket([]);
+        } else {
+          setTicket(data[0]);
+        }
+      });
+    } else {
+      setTicket([]);
+    }
+  }, [userId, authToken]);
+
+  useEffect(() => {
+    ticket && setLoading(false);
     setCurrentPage(Screen.TICKETS);
-  }, []);
+  }, [ticket]);
 
   if (loading) {
     return <Loading />;
   }
+
+  const { titulo, data, id, endereco } = ticket;
+  const address = `${endereco.rua}, ${endereco.numero} - ${endereco.cidade}`;
 
   return (
     <>
@@ -39,12 +61,12 @@ export default function Page({ params }: { params: { ticketId: string } }) {
 
       <Content>
         <Container>
-          <Title>ElectroBlast Rave</Title>
+          <Title>{titulo}</Title>
           <Ticket>
-            <h3>ElectroBlast Rave</h3>
-            <p>22/09/2024 - 00:00</p>
-            <p>Allianz Parque - São Paulo</p>
-            <Badge color="#29E731">Adquirido</Badge>
+            <h3>{titulo}</h3>
+            <p>{formatDate(data)}</p>
+            <p>{address}</p>
+            <Badge color={badgeColor('owned')}>{badgeText('owned')}</Badge>
           </Ticket>
 
           <ButtonsContainer>
@@ -62,11 +84,19 @@ export default function Page({ params }: { params: { ticketId: string } }) {
           </ButtonsContainer>
 
           {displaySellModal && (
-            <SellModal onClose={() => setDisplaySellModal(false)} />
+            <SellModal
+              id={id}
+              eventName={titulo}
+              onClose={() => setDisplaySellModal(false)}
+            />
           )}
 
           {displaySwapModal && (
-            <SwapModal onClose={() => setDisplaySwapModal(false)} />
+            <SwapModal
+              id={id}
+              eventName={titulo}
+              onClose={() => setDisplaySwapModal(false)}
+            />
           )}
         </Container>
       </Content>
